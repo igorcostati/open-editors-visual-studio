@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+	<Metadata>
+		<Identity Id="OpenEditors.VisualStudio.Vsix.2a6f25d0-c055-4860-a0d4-fb313de4f3b3" Version="1.0.0" Language="en-US" Publisher="Igor Costa" />
+		<DisplayName>Open Editors for Visual Studio</DisplayName>
+		<Description xml:space="preserve">Bring the VS Code "Open Editors" experience into Visual Studio with a real-time panel for managing open documents, quick actions, and native integration.</Description>
+		<MoreInfo>https://github.com/igorcostati/open-editors-visual-studio</MoreInfo>
+		<License>LICENSE</License>
+		<ReleaseNotes>RELEASE_NOTES.md</ReleaseNotes>
+		<Tags>visual studio, productivity, open editors, navigation, vsix</Tags>
+		<Preview>true</Preview>
+	</Metadata>
+	<Installation>
+		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, )">
+			<ProductArchitecture>amd64</ProductArchitecture>
+		</InstallationTarget>
+	</Installation>
+	<Dependencies>
+		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+	</Dependencies>
+	<Prerequisites>
+		<Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0, )" DisplayName="Visual Studio core editor" />
+	</Prerequisites>
+	<Assets>
+		<Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+	</Assets>
+</PackageManifest>

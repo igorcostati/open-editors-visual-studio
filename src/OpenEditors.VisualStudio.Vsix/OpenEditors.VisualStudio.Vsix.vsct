@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable">
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+  <Extern href="KnownImageIds.vsct" />
+
+  <Commands package="guidOpenEditorsPackage">
+    <Groups>
+      <Group guid="guidOpenEditorsCmdSet" id="OpenEditorsToolWindowGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_VIEW" />
+      </Group>
+      <Group guid="guidOpenEditorsCmdSet" id="OpenEditorsContextMenuGroup" priority="0x0100">
+        <Parent guid="guidOpenEditorsCmdSet" id="OpenEditorsContextMenu" />
+      </Group>
+    </Groups>
+
+    <Menus>
+      <Menu guid="guidOpenEditorsCmdSet" id="OpenEditorsContextMenu" priority="0x0100" type="Context">
+        <Strings>
+          <ButtonText>Open Editors Context Menu</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Buttons>
+      <Button guid="guidOpenEditorsCmdSet" id="OpenEditorsToolWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenEditorsCmdSet" id="OpenEditorsToolWindowGroup" />
+        <Icon guid="ImageCatalogGuid" id="DocumentGroup" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Open Editors</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidOpenEditorsCmdSet" id="OpenEditorsContextSaveCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenEditorsCmdSet" id="OpenEditorsContextMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="Save" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Save Document</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidOpenEditorsCmdSet" id="OpenEditorsContextDuplicateCommandId" priority="0x0110" type="Button">
+        <Parent guid="guidOpenEditorsCmdSet" id="OpenEditorsContextMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="Copy" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Duplicate</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidOpenEditorsCmdSet" id="OpenEditorsContextCloseCommandId" priority="0x0120" type="Button">
+        <Parent guid="guidOpenEditorsCmdSet" id="OpenEditorsContextMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="Close" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Close Document</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidOpenEditorsCmdSet" id="OpenEditorsContextCloseAllCommandId" priority="0x0130" type="Button">
+        <Parent guid="guidOpenEditorsCmdSet" id="OpenEditorsContextMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="CloseAll" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Close All Documents</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidOpenEditorsPackage" value="{eddeda39-af65-4734-ba70-6366d3d40275}" />
+    <GuidSymbol name="guidOpenEditorsCmdSet" value="{a6eaf4c4-c843-4f8f-bb94-1f7c2148d2c1}">
+      <IDSymbol name="OpenEditorsToolWindowGroup" value="0x1020" />
+      <IDSymbol name="OpenEditorsToolWindowCommandId" value="0x0100" />
+      <IDSymbol name="OpenEditorsContextMenu" value="0x1100" />
+      <IDSymbol name="OpenEditorsContextMenuGroup" value="0x1101" />
+      <IDSymbol name="OpenEditorsContextSaveCommandId" value="0x1102" />
+      <IDSymbol name="OpenEditorsContextDuplicateCommandId" value="0x1103" />
+      <IDSymbol name="OpenEditorsContextCloseCommandId" value="0x1104" />
+      <IDSymbol name="OpenEditorsContextCloseAllCommandId" value="0x1105" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

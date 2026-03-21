@@ -21,7 +21,7 @@ packages/
 *.snupkg
 
 # VSIX packaging artifacts
-*.vsix
+**/[Bb]in/**/*.vsix
 
 # ReSharper / Rider
 _ReSharper*/
