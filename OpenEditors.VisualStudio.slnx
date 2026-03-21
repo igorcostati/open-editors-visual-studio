@@ -1,0 +1,26 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="arm64" />
+    <Platform Name="x86" />
+  </Configurations>  
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+    <File Path="LICENSE" />
+    <File Path="RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Solution Items/docs/" />
+  <Folder Name="/Solution Items/docs/images/">
+    <File Path="docs/images/icone.png" />
+    <File Path="docs/images/open-editors-context-menu.png" />
+    <File Path="docs/images/open-editors-dark-theme.png" />
+    <File Path="docs/images/open-editors.png" />
+  </Folder>
+
+  <Folder Name="/src/">
+    <Project Path="src/OpenEditors.VisualStudio.Vsix/OpenEditors.VisualStudio.Vsix.csproj" Id="5a4ddff4-13d9-4abc-8064-edd62e4d1a91">
+      <Platform Solution="*|arm64" Project="arm64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+  </Folder>  
+</Solution>
