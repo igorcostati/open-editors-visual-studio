@@ -60,21 +60,6 @@ namespace OpenEditors.VisualStudio.Vsix
         await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
         await OpenEditorsToolWindowCommand.InitializeAsync(this);
         await OpenEditorsContextMenuCommand.InitializeAsync(this);
-        await InitializeRestoredToolWindowAsync(cancellationToken);
-    }
-
-    private async Task InitializeRestoredToolWindowAsync(CancellationToken cancellationToken)
-    {
-        await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-
-        var toolWindow = FindToolWindow(typeof(ToolWindows.OpenEditorsToolWindow), 0, false) as ToolWindows.OpenEditorsToolWindow;
-        if (toolWindow == null)
-        {
-            return;
-        }
-
-        _ = await GetServiceAsync(typeof(OpenEditorsDocumentService));
-        await toolWindow.InitializeAsync(this);
     }
 
     private async Task<object> CreateDocumentTrackingServiceAsync(IAsyncServiceContainer container, CancellationToken cancellationToken, Type serviceType)

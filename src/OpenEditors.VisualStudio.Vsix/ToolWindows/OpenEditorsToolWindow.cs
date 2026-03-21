@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.Shell;
 using OpenEditors.VisualStudio.Vsix.Services;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OpenEditors.VisualStudio.Vsix.ToolWindows
@@ -10,6 +11,8 @@ namespace OpenEditors.VisualStudio.Vsix.ToolWindows
     public class OpenEditorsToolWindow : ToolWindowPane
     {
         private readonly OpenEditorsToolWindowControl _control;
+        private bool _isInitialized;
+        private readonly SemaphoreSlim _initializeGate = new SemaphoreSlim(1, 1);
 
         public OpenEditorsToolWindow() : base(null)
         {
@@ -18,22 +21,50 @@ namespace OpenEditors.VisualStudio.Vsix.ToolWindows
             Content = _control;
         }
 
-        public async Task InitializeAsync(AsyncPackage package)
+        public override void OnToolWindowCreated()
         {
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            base.OnToolWindowCreated();
 
-            var packageInstance = package as OpenEditorsVisualStudioVsixPackage;
-            var documentService = packageInstance?.DocumentService
-                ?? await package.GetServiceAsync(typeof(OpenEditorsDocumentService)) as OpenEditorsDocumentService;
-
-            if (documentService == null)
+            var package = Package as AsyncPackage;
+            if (package == null)
             {
                 return;
             }
 
-            await _control.InitializeAsync(documentService, package);
+            package.JoinableTaskFactory.RunAsync(async delegate
+            {
+                await InitializeAsync(package);
+            });
+        }
 
-            await documentService.RefreshDocumentsAsync(package.DisposalToken);
+        public async Task InitializeAsync(AsyncPackage package)
+        {
+            await _initializeGate.WaitAsync(package.DisposalToken);
+            try
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
+
+                var packageInstance = package as OpenEditorsVisualStudioVsixPackage;
+                var documentService = packageInstance?.DocumentService
+                    ?? await package.GetServiceAsync(typeof(OpenEditorsDocumentService)) as OpenEditorsDocumentService;
+
+                if (documentService == null)
+                {
+                    return;
+                }
+
+                if (!_isInitialized)
+                {
+                    await _control.InitializeAsync(documentService, package);
+                    _isInitialized = true;
+                }
+
+                await documentService.RefreshDocumentsAsync(package.DisposalToken);
+            }
+            finally
+            {
+                _initializeGate.Release();
+            }
         }
     }
 }
