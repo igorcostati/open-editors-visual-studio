@@ -22,5 +22,8 @@
       <Platform Solution="*|arm64" Project="arm64" />
       <Platform Solution="*|x86" Project="x86" />
     </Project>
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/OpenEditors.VisualStudio.Tests/OpenEditors.VisualStudio.Tests.csproj" Id="1b57d50b-3cbd-4380-b79a-8462e977bf6f" />
   </Folder>  
 </Solution>
