@@ -61,6 +61,14 @@
     <Compile Include="PackageIds.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icone.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="open-editors.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Page Include="ToolWindows\OpenEditorsToolWindowControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
