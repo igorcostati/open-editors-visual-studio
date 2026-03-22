@@ -60,7 +60,7 @@
     <Compile Include="PackageGuids.cs" />
     <Compile Include="PackageIds.cs" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Page Include="ToolWindows\OpenEditorsToolWindowControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,7 +75,8 @@
     </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
-    </None><VSCTCompile Include="OpenEditors.VisualStudio.Vsix.vsct">
+    </None>
+    <VSCTCompile Include="OpenEditors.VisualStudio.Vsix.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
   </ItemGroup>
@@ -88,7 +89,18 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.32112.339" ExcludeAssets="runtime" NoWarn="NU1604" />
+    <PackageReference Include="Microsoft.ServiceHub.Analyzers">
+      <Version>4.4.22</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.41904" ExcludeAssets="runtime" NoWarn="NU1604">
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Sdk.TestFramework">
+      <Version>17.0.41904</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
+      <Version>17.0.41904</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.14.2120" NoWarn="NU1604" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

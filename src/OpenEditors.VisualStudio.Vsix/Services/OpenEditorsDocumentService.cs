@@ -271,7 +271,7 @@ namespace OpenEditors.VisualStudio.Vsix.Services
             {
                 foreach (Document document in _dte.Documents)
                 {
-                    if (document == null || string.IsNullOrEmpty(document.FullName))
+                    if (document == null || string.IsNullOrEmpty(document.FullName) || ShouldIgnoreDocumentPath(document.FullName))
                     {
                         continue;
                     }
@@ -401,7 +401,7 @@ namespace OpenEditors.VisualStudio.Vsix.Services
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (_dte?.Documents == null)
+            if (_dte?.Documents == null || ShouldIgnoreDocumentPath(fullPath))
             {
                 return null;
             }
@@ -420,6 +420,64 @@ namespace OpenEditors.VisualStudio.Vsix.Services
             }
 
             return null;
+        }
+
+        private static bool ShouldIgnoreDocumentPath(string fullPath)
+        {
+            if (string.IsNullOrWhiteSpace(fullPath))
+            {
+                return true;
+            }
+
+            if (!TryNormalizePath(fullPath, out var normalizedPath))
+            {
+                return false;
+            }
+
+            if (!IsUnderTempDirectory(normalizedPath))
+            {
+                return false;
+            }
+
+            var copilotSegment = $"{Path.DirectorySeparatorChar}CopilotBaseline{Path.DirectorySeparatorChar}";
+            var copilotAltSegment = $"{Path.AltDirectorySeparatorChar}CopilotBaseline{Path.AltDirectorySeparatorChar}";
+
+            return normalizedPath.IndexOf(copilotSegment, StringComparison.OrdinalIgnoreCase) >= 0
+                || normalizedPath.IndexOf(copilotAltSegment, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static bool IsUnderTempDirectory(string fullPath)
+        {
+            if (!TryNormalizePath(Path.GetTempPath(), out var tempPath))
+            {
+                return false;
+            }
+
+            if (!tempPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+            {
+                tempPath += Path.DirectorySeparatorChar;
+            }
+
+            return fullPath.StartsWith(tempPath, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool TryNormalizePath(string path, out string normalizedPath)
+        {
+            normalizedPath = null;
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return false;
+            }
+
+            try
+            {
+                normalizedPath = Path.GetFullPath(path);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public int OnAfterAttributeChange(uint docCookie, uint grfAttribs)
