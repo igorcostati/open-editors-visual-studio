@@ -7,8 +7,9 @@
         <MoreInfo>https://github.com/igorcostati/open-editors-visual-studio</MoreInfo>
         <License>LICENSE</License>
         <ReleaseNotes>RELEASE_NOTES.md</ReleaseNotes>
+        <Icon>icone.png</Icon>
+        <PreviewImage>open-editors.png</PreviewImage>
         <Tags>visual studio, productivity, open editors, navigation, vsix</Tags>
-        <Preview>true</Preview>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, )">
